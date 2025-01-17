@@ -1,0 +1,79 @@
+
+import avatar1 from '../img/avatars/avatar_1.jpg'
+import avatar2 from '../img/avatars/avatar_2.jpg'
+import avatar3 from '../img/avatars/avatar_3.jpg'
+import avatar4 from '../img/avatars/avatar_4.jpg'
+import avatar5 from '../img/avatars/avatar_5.jpg'
+import avatar6 from '../img/avatars/avatar_6.jpg'
+import avatar7 from '../img/avatars/avatar_7.jpg'
+import avatar8 from '../img/avatars/avatar_8.jpg'
+import avatar9 from '../img/avatars/avatar_9.jpg'
+import avatar10 from '../img/avatars/avatar_10.jpg'
+
+
+const buyNftData = [
+
+    {
+        id: 1,
+        img: avatar1,   
+        title: ' Me Outside',
+        rateprice : '2.26 ',
+    },
+    {
+        id: 2,
+        img: avatar2,   
+        title: 'Lazyone Panda',
+        rateprice : '2 ',
+    },
+    {
+        id: 3,
+        img: avatar3,   
+        title: 'Splendid Girl',
+        rateprice : '5.1 ',
+    },
+    {
+        id: 4,
+        img: avatar4,   
+        title: 'Amazing Nft art',
+        rateprice : '733 ',
+    },
+    {
+        id: 5,
+        img: avatar5,   
+        title: 'Portrait Gallery',
+        rateprice : '0.7 ',
+    },
+    {
+        id: 6,
+        img: avatar6,   
+        title: 'Flourishing Cat #180',
+        rateprice : '343 ',
+    },
+    {
+        id: 7,
+        img: avatar7,   
+        title: 'Flourishing Cat #180',
+        rateprice : '39 ',
+    },
+    {
+        id: 8,
+        img: avatar8,   
+        title: 'Flourishing Cat #180',
+        rateprice : '231 ',
+    },
+    {
+        id: 9,
+        img: avatar9,   
+        title: 'Flourishing Cat #180',
+        rateprice : '342',
+    },
+    {
+        id: 10,
+        img: avatar10,   
+        title: 'Flourishing Cat #180',
+        rateprice : '402',
+    },
+
+]
+
+export default buyNftData
