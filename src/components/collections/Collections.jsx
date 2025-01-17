@@ -68,7 +68,7 @@ const Collections = () => {
           <figure className="mr-4 shrink-0">
             <a href="#" className="relative block">
               <img
-                src={item.img}
+                src="https://digidaigaku.com/image/1.png"
                 alt={item.title}
                 className="rounded-2lg"
                 loading="lazy"
