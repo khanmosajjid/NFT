@@ -1,7 +1,7 @@
 import { readContract, writeContract } from "@wagmi/core";
 // Define nftContract with address and ABI
 import { config } from "../App";
-import  ABI  from "./nftABI.json";
+import ABI from "./nftABI.json";
 import { parseEther } from "viem";
 
 const nftContractAddress = "0x2b3edaACb2766eA581A28613bF185cD8f93bA3Bc";
@@ -15,7 +15,7 @@ const NFTService = {
 
     try {
       const value = (BigInt(100) * BigInt(1e18)) / 100n; // 1 ETH = 100 NFTs
-      console.log("value is---->",value.toString());
+      console.log("value is---->", value.toString());
       const tx = await writeContract(config, {
         address: nftContractAddress,
         abi: ABI,
@@ -96,7 +96,8 @@ const NFTService = {
         functionName: "getUserDetails",
         args: [account],
       });
-      return roiHistory.monthlyCollections; // Assuming it returns `monthlyCollections` in the response
+      console.log("roi history is------>", roiHistory);
+      return roiHistory[1]; // Assuming it returns `monthlyCollections` in the response
     } catch (error) {
       console.error("Error fetching ROI history:", error);
       throw error;

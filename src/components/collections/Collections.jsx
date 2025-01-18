@@ -9,16 +9,31 @@ import { useAccount } from "wagmi";
 const Collections = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   const [ownedNfts, setOwnedNfts] = useState([]); // Store owned NFTs
+  const [ownedNftsCount, setOwnedNftsCount] = useState([]);
   const [monthlyCollections, setMonthlyCollections] = useState([]); // Store monthly NFT collections
   const [combinedData, setCombinedData] = useState([]); // Store combined data for tab1
   const { address: account } = useAccount();
   console.log("address is----->", account);
 
+  const generateCardData = (count, sourceData) => {
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      result.push({
+        id: i + 1,
+        title: sourceData[i % sourceData.length]?.title || `NFT #${i + 1}`,
+        rateprice: sourceData[i % sourceData.length]?.rateprice || "N/A",
+      });
+    }
+    return result;
+  };
+
   useEffect(() => {
     if (account) {
       const fetchOwnedNfts = async () => {
         let nftCount = await NFTService.getOwnedNFTs(account);
-        const userOwnedNfts = buyNftData.slice(0, parseInt(nftCount.toString())); // Get only the number of NFTs owned by the user
+        nftCount = parseInt(nftCount.toString()); // Ensure proper conversion to integer
+        setOwnedNftsCount(nftCount);
+        const userOwnedNfts = generateCardData(nftCount, buyNftData);
         setOwnedNfts(userOwnedNfts);
       };
 
@@ -28,8 +43,11 @@ const Collections = () => {
           const totalMonthlyCount = roiHistory.reduce(
             (total, monthData) => total + monthData.count,
             0
-          ); // Calculate total NFTs in monthly collections
-          const userMonthlyCollections = buyNftData.slice(0, totalMonthlyCount); // Get data based on total count
+          );
+          const userMonthlyCollections = generateCardData(
+            totalMonthlyCount,
+            buyNftData
+          );
           setMonthlyCollections(userMonthlyCollections);
         } catch (error) {
           console.error("Error fetching monthly collections:", error);
@@ -38,17 +56,14 @@ const Collections = () => {
 
       const fetchCombinedData = async () => {
         let nftCount = await NFTService.getOwnedNFTs(account);
+        nftCount = parseInt(nftCount.toString()); // Ensure proper conversion to integer
         let roiHistory = await NFTService.getROIHistory(account);
-        console.log("roi history is",roiHistory);
-        const totalMonthlyCount = roiHistory?.reduce(
+        const totalMonthlyCount = roiHistory.reduce(
           (total, monthData) => total + monthData.count,
           0
         );
-        console.log("total monthly count",totalMonthlyCount)
-        const totalCount = parseInt(nftCount.toString()); 
-        // const totalCount = parseInt(nftCount.toString()) + totalMonthlyCount?totalMonthlyCount:0; // Combine counts from both sources
-        const combinedNfts = buyNftData.slice(0, totalCount); // Get combined data
-        console.log("total count",totalCount);
+        const totalCount = nftCount + totalMonthlyCount;
+        const combinedNfts = generateCardData(totalCount, buyNftData);
         setCombinedData(combinedNfts);
       };
 
@@ -130,7 +145,7 @@ const Collections = () => {
                                 group flex h-9 items-center rounded-lg border border-jacarta-100 bg-white px-4 font-display text-sm font-semibold text-jacarta-500 transition-colors hover:border-transparent hover:bg-accent hover:text-white dark:border-jacarta-600 dark:bg-jacarta-900 dark:text-white dark:hover:border-transparent dark:hover:bg-accent dark:hover:text-white`}
                   onClick={() => setActiveTab(tab)}
                 >
-                  {index === 0 && "All"}
+                  {index === 0 && `All (${ownedNftsCount})`}
                   {index === 1 && "Buy NFT"}
                   {index === 2 && "Monthly Collections"}
                 </li>
